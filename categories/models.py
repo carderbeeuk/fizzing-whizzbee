@@ -9,14 +9,23 @@ class GoogleCategory(models.Model):
     google_category_id = models.IntegerField()
     google_category_full_path = models.TextField()
 
+    def __str__(self):
+        return self.google_category_full_path
+
     class Meta:
         db_table = 'google_categories'
+        constraints = [
+        models.UniqueConstraint(fields=['name', 'cardinality', 'parent_category_id'], name='name_cardinality_parent_category_id')
+    ]
 
 
 class Category(models.Model):
     """all categories should match up with a google category"""
     name = models.CharField(max_length=64)
     google_category = models.ForeignKey(GoogleCategory, on_delete=models.CASCADE, null=False)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         db_table = 'categories'

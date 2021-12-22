@@ -1,6 +1,6 @@
 from django.db import models
 from providers.models import Provider
-from categories.models import Category
+from categories.models import GoogleCategory
 
 
 # Create your models here.
@@ -9,11 +9,14 @@ class Merchant(models.Model):
     source = models.ForeignKey(Provider, on_delete=models.CASCADE)
     feed_name = models.CharField(max_length=128)
     feed_url = models.TextField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    default_google_category = models.ForeignKey(GoogleCategory, on_delete=models.CASCADE, null=True, blank=True)
     approved = models.BooleanField(default=True)
     active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.name} - {self.feed_name}'
 
     class Meta:
         db_table = 'merchants'
