@@ -1,12 +1,17 @@
 from django.db import models
-from providers.models import Provider
-from categories.models import GoogleCategory
+from apps.categories.models import GoogleCategory
 
 
 # Create your models here.
 class Merchant(models.Model):
     name = models.CharField(max_length=64)
-    source = models.ForeignKey(Provider, on_delete=models.CASCADE)
+
+    SOURCES = (
+        ('AWIN', 'awin'),
+        ('KELKOO', 'kelkoo'),
+    )
+    source = models.CharField(max_length=32, choices=SOURCES, null=False)
+
     feed_name = models.CharField(max_length=128)
     feed_url = models.TextField()
     default_google_category = models.ForeignKey(GoogleCategory, on_delete=models.CASCADE, null=True, blank=True)
@@ -16,7 +21,7 @@ class Merchant(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.name} - {self.feed_name}'
+        return f'({self.source}) {self.name} - {self.feed_name}'
 
     class Meta:
         db_table = 'merchants'

@@ -1,7 +1,7 @@
 import requests
 from django.core.management.base import BaseCommand
-from categories.parsers.categories_parser import CategoriesParser
-from categories.models import Category, GoogleCategory
+from apps.categories.parsers.categories_parser import CategoriesParser
+from apps.categories.models import Category, GoogleCategory
 
 
 class Command(BaseCommand):
