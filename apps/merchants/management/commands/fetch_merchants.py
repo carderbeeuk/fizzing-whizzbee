@@ -28,7 +28,6 @@ class Command(BaseCommand):
         self._download_merchants_info(provider)
         self._store_merchant_info(provider)
 
-        # service.fetch_merchants()
         print(f'done fetching {provider} merchants')
 
     def _download_merchants_info(self, provider):

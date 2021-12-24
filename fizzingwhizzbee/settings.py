@@ -145,11 +145,17 @@ FEED_DATA = {
 
 PROVIDERS = {
     'awin': {
-        'api_key': 'd017bc3d12b35fc2455823e5ba4fc3a2',
+        'api_key': env('AWIN_API_KEY'),
         'merchants_endpoint': 'https://productdata.awin.com/datafeed/list/apikey/',
     },
     'kelkoo': {
-        'api_key': 'eyJraWQiOiJkYWMwNjQzYy05ZmY2LTRmZTMtODFiMC1kNWYzZWNlYzYxMGEiLCJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJwbXdzLWFwcGxpY2F0aW9uLWlkOjk3MSIsImF6cCI6IlNob3BwaW5nQVBJIiwiaXNzIjoiS2Vsa29vIEdyb3VwIiwiaWF0IjoxNjM3MDU4NzQ3LCJqdGkiOiIzNWJmOGI5ZS1kZmRmLTRmMWUtODE1NS1hYTEyMzlhY2ZlMmEifQ.gaEiqvZlngfjlsOnRulbXYm_ZLkzgESniJv87Ne1w28guzCKERBRqIRnj5MSPz4jEDVoBFUW7Q-hAEZpHAxARDVPh0B2AlXsVqnY7tw7ygSnFEbjgppHKUfJQBcpbYY9WjQ5uUm0YUYF8t7ov41ZWbEXTOgYykSU-ElTO9YqfRaQSEpOmCgPSA9o9EO_M2A3TXTdHg6zYBx6387zYVD5_ns11ouLHmYkeyHJ9DopCqOVbDDXYGux6fI1QM8E2OO0VWweWXInQWM8Po3-wsd0tdqtNvepltsQPcXdYu1J9x8qq1y21jXzc9x9Ly3Hc2VP4tNXj6ClgONLoKprRV2xcD_XuoE5yXR7v7qvmdBeXpCqxBB2vnbQTVyzJMjL-H0uO5yLiDMVrT3DCXk3SeHeR8jG9DKn6ClUpvdIr71tTztQQ-FZmqSvwd8Mj5wx0XJ-4KJcBmls5ijnyFHpj-G2O5HmlTlz2YRIMo7_ZEnJq7YBO8y16WOGAyz4_U9yRBEB2Y5bOxyoal7BC6IVJv1AKzjspBNLAjKWFR_Fj9e0wXEftj1vZD5qHCPBDsLhV0O1B6YCNNoivpw_tghAt5nWphRnTqY5mpfUQmB_XJR4boLeDcerfLheGipbaPKbKGUbU4ZsV2IT3dDk_bTBG8Ug7kWaU4C2UXGCKZnqoVkc2RI',
+        'api_key': env('KELKOO_API_KEY'),
         'merchants_endpoint': 'https://api.kelkoogroup.net/publisher/shopping/v2/feeds/merchants',
     },
+}
+
+EVENT_MANAGER = {
+    'semaphore': {
+        'max_threads': 4
+    }
 }
