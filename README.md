@@ -114,7 +114,7 @@ provider. This includes feed download urls, merchant names, feed names, .etc. Th
 are then stored in the `merchants` table for use later on.
 
 > It is strongly reccommended that the merchants, once imported, are assigned a
-> `default_google_category` field if the source/provider is awin. This can be done in the application
+> `default_google_category` value if the source/provider is awin. This can be done in the application
 > admin section once the google categories are imported.
 
 ##### Options
