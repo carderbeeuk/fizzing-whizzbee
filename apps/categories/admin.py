@@ -7,6 +7,7 @@ from .models import Category, GoogleCategory
 
 @admin.register(GoogleCategory)
 class GoogleCategoryAdmin(admin.ModelAdmin):
+    search_fields = ['name', 'parent_category__name',]
     list_display = (
         'name',
         'cardinality',

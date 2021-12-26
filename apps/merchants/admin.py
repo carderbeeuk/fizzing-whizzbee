@@ -6,6 +6,7 @@ from .models import Merchant
 
 @admin.register(Merchant)
 class MerchantAdmin(admin.ModelAdmin):
+    search_fields = ['name', 'source', 'default_google_category__name',]
     list_display = (
         'name',
         'source',
