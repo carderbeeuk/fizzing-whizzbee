@@ -4,7 +4,7 @@ import csv
 from django.core.management.base import BaseCommand
 from django.conf import settings
 from optparse import make_option
-from apps.merchants.helpers.downloader import Downloader
+from lib.downloader import Downloader
 from apps.merchants.models import Merchant
 
 
@@ -60,11 +60,12 @@ class Command(BaseCommand):
 
         print(f'storing merchant information for {provider}')
 
+        provider_service = importlib.import_module(f'apps.merchants.services.{provider}').Service()
+
         with open(file_full_path) as f:
             reader = csv.DictReader(f)
 
-            Merchant.objects.filter(source=str(provider).upper).update(approved=False)
+            Merchant.objects.filter(source=str(provider).upper()).update(approved=False)
             for row in reader:
-                provider_service = importlib.import_module(f'apps.merchants.services.{provider}').Service()
                 parsed_row = provider_service.parse_row(row)
                 provider_service.store_merchant(parsed_row)
