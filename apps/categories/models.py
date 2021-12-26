@@ -8,12 +8,14 @@ class GoogleCategory(models.Model):
     parent_category = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
     google_category_id = models.IntegerField()
     google_category_full_path = models.TextField()
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.google_category_full_path
 
     class Meta:
         db_table = 'google_categories'
+        ordering = ('name',)
         constraints = [
             models.UniqueConstraint(fields=['name', 'cardinality', 'parent_category_id'], name='name_cardinality_parent_category_id')
         ]
