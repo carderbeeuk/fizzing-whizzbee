@@ -2,44 +2,6 @@
 > django application to handle, store, and expose
 > provider offer feeds
 
-## Console Commands
-> remember to activate the virtual environment
-
-### Categories
-#### `fetch_google_categories`
-`python manage.py fetch_google_categories`
-
-Fetches all google categories from https://www.google.com/basepages/producttype/taxonomy-with-ids.en-GB.txt<br/>
-and stores them in the database.
-
-### Merchants
-#### `download_merchant_feeds`
-```
-python manage.py download_merchant_feeds --provider {provider}
-```
-
-Downloads all merchant feed files from the relevant provider based on the feed_url defined in<br/>
-the `merchants` table. Only `active` and `approved` merchants will be downloaded.
-
-##### Options
-`-p --provider` the provider (e.g. kelkoo, awin)
-
-#### `fetch_merchants`
-```
-python manage.py fetch_merchants --provider {provider}
-```
-
-Downloads a csv file containing all merchant information to which carderbee has access by<br/>
-provider. This includes feed download urls, merchant names, feed names, .etc. These merchants<br/>
-are then stored in the `merchants` table for use later on.
-
-> It is strongly reccommended that the merchants, once imported, are assigned a
-> `default_google_category` field if the source/provider is awin. This can be done in the application
-> admin section once the google categories are imported.
-
-##### Options
-`-p --provider` the provider (e.g. kelkoo, awin)
-
 ## Installation
 
 ### Requirements
@@ -120,3 +82,40 @@ cd /srv/fizzing-whizzbee
 python manage.py makemigrations
 python manage.py migrate
 ```
+
+## Console Commands
+
+### Categories
+#### `fetch_google_categories`
+`python manage.py fetch_google_categories`
+
+Fetches all google categories from https://www.google.com/basepages/producttype/taxonomy-with-ids.en-GB.txt<br/>
+and stores them in the database.
+
+### Merchants
+#### `download_merchant_feeds`
+```
+python manage.py download_merchant_feeds --provider {provider}
+```
+
+Downloads all merchant feed files from the relevant provider based on the feed_url defined in<br/>
+the `merchants` table. Only `active` and `approved` merchants will be downloaded.
+
+##### Options
+`-p --provider` the provider (e.g. kelkoo, awin)
+
+#### `fetch_merchants`
+```
+python manage.py fetch_merchants --provider {provider}
+```
+
+Downloads a csv file containing all merchant information to which carderbee has access by<br/>
+provider. This includes feed download urls, merchant names, feed names, .etc. These merchants<br/>
+are then stored in the `merchants` table for use later on.
+
+> It is strongly reccommended that the merchants, once imported, are assigned a
+> `default_google_category` field if the source/provider is awin. This can be done in the application
+> admin section once the google categories are imported.
+
+##### Options
+`-p --provider` the provider (e.g. kelkoo, awin)
