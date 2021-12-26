@@ -150,7 +150,7 @@ PROVIDERS = {
     },
     'kelkoo': {
         'api_key': env('KELKOO_API_KEY'),
-        'merchants_endpoint': 'https://api.kelkoogroup.net/publisher/shopping/v2/feeds/merchants',
+        'merchants_endpoint': 'https://api.kelkoogroup.net/publisher/shopping/v2/feeds/merchants?country=uk&format=csv&offerMatch=any&merchantMatch=any',
     },
 }
 

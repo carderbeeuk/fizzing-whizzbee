@@ -1,5 +1,6 @@
 import importlib
 import pathlib
+import csv
 from django.core.management.base import BaseCommand
 from django.conf import settings
 from optparse import make_option
@@ -24,26 +25,25 @@ class Command(BaseCommand):
 
         print('setting up required directories')
         provider = kwargs.get('provider')
-        
-        self._download_merchants_info(provider)
-        self._store_merchant_info(provider)
-
-        print(f'done fetching {provider} merchants')
-
-    def _download_merchants_info(self, provider):
-        """downloads merchants info file"""
 
         file_dir = str(settings.FEED_DATA['file_dir']) + '/' + provider
         pathlib.Path(file_dir).mkdir(exist_ok=True)
+        file_full_path = file_dir + '/merchants.csv'
+        
+        self._download_merchants_info(provider, file_full_path)
+        self._store_merchant_info(provider, file_full_path)
+
+        print(f'done fetching {provider} merchants')
+
+    def _download_merchants_info(self, provider, file_full_path):
+        """downloads merchants info file"""
 
         print(f'downloading {provider} merchants csv file')
-        file_full_path = file_dir + '/merchants.csv'
 
         token = settings.PROVIDERS[provider]['api_key']
         endpoint = settings.PROVIDERS[provider]['merchants_endpoint']
         headers = {}
         if provider == 'kelkoo':
-            endpoint += '?country=uk&format=csv&offerMatch=any&merchantMatch=any'
             headers = {
                 'Authorization': f'Bearer {token}',
                 'Accept-Encoding': 'gzip',
@@ -55,7 +55,16 @@ class Command(BaseCommand):
         downloader = Downloader(endpoint, headers)
         downloader.download(file_full_path)
 
-    def _store_merchant_info(self, provider):
+    def _store_merchant_info(self, provider, file_full_path):
         """stores merchant information in the db"""
 
-        
+        print(f'storing merchant information for {provider}')
+
+        with open(file_full_path) as f:
+            reader = csv.DictReader(f)
+
+            Merchant.objects.filter(source=str(provider).upper).update(approved=False)
+            for row in reader:
+                provider_service = importlib.import_module(f'apps.merchants.services.{provider}').Service()
+                parsed_row = provider_service.parse_row(row)
+                provider_service.store_merchant(parsed_row)

@@ -15,8 +15,8 @@ class GoogleCategory(models.Model):
     class Meta:
         db_table = 'google_categories'
         constraints = [
-        models.UniqueConstraint(fields=['name', 'cardinality', 'parent_category_id'], name='name_cardinality_parent_category_id')
-    ]
+            models.UniqueConstraint(fields=['name', 'cardinality', 'parent_category_id'], name='name_cardinality_parent_category_id')
+        ]
 
 
 class Category(models.Model):
