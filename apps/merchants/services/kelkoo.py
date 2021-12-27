@@ -11,7 +11,7 @@ class Service(Provider):
 
         feed_url = f'https://api.kelkoogroup.net/publisher/shopping/v2/feeds/offers?format=csv&fieldsAlias=all&country=uk&merchantId={row["id"]}'
         merchant = {
-            'name': row['name'],
+            'name': str(row['name']).strip(),
             'source': self.source,
             'feed_name': 'Default',
             'feed_url': feed_url,

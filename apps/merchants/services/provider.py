@@ -13,7 +13,7 @@ class Provider():
             return
 
         try:
-            updated_merchant = Merchant.objects.create(
+            new_merchant = Merchant.objects.create(
                 name=merchant['name'],
                 source=merchant['source'],
                 feed_name=merchant['feed_name'],

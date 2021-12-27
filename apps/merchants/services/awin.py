@@ -56,9 +56,9 @@ class Service(Provider):
         feed_url = head + sep + ','.join(columns)
 
         merchant = {
-            'name': row['Advertiser Name'],
+            'name': row['Advertiser Name'].strip(),
             'source': self.source,
-            'feed_name': row['Feed Name'],
+            'feed_name': row['Feed Name'].strip(),
             'feed_url': feed_url,
             'approved': row['Membership Status'] == 'active'
         }
