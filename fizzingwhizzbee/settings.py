@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     # my apps
     'apps.categories',
+    'apps.indices',
     'apps.merchants',
 ]
 
