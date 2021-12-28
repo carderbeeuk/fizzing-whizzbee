@@ -22,34 +22,42 @@ CURRENCY_CHOICES = (
     ('USD', 'USD'),
 )
 
+PROVIDERS = (
+    ('AWIN', 'awin'),
+    ('KELKOO', 'kelkoo'),
+)
+
 
 # Create your models here.
 class Product(models.Model):
     product_code = models.CharField(max_length=128)
+    active = models.BooleanField(default=True)
     product_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     offer_id = models.CharField(max_length=128)
     availability = models.CharField(max_length=32, choices=AVAILABILITY_CHOICES, null=False)
     title = models.CharField(max_length=255)
     description = models.TextField()
-    author = models.CharField(max_length=128)
-    publisher = models.CharField(max_length=128)
+    author = models.CharField(max_length=128, null=True, blank=True)
+    publisher = models.CharField(max_length=128, null=True, blank=True)
     price = models.DecimalField(max_digits=11, decimal_places=2)
     price_without_rebate = models.DecimalField(max_digits=11, decimal_places=2)
-    month_price = models.DecimalField(max_digits=11, decimal_places=2)
+    month_price = models.DecimalField(max_digits=11, decimal_places=2, null=True, blank=True)
     manufacturer = models.CharField(max_length=128)
     merchant = models.ForeignKey(Merchant, on_delete=models.CASCADE)
+    provider = models.CharField(max_length=32, choices=PROVIDERS, null=False)
     google_category = models.ForeignKey(GoogleCategory, on_delete=models.CASCADE)
+    condition = models.CharField(max_length=16, default='new')
     click_out_url = models.TextField()
     merchant_landing_url = models.TextField()
     merchant_mobile_landing_url = models.TextField()
     image_large = models.TextField()
     image_small = models.TextField()
     delivery_time = models.CharField(max_length=32)
-    delivery_cost = models.DecimalField(max_digits=11, decimal_places=2)
+    delivery_cost = models.DecimalField(max_digits=11, decimal_places=2, null=True, blank=True)
     discount_percentage = models.IntegerField()
     currency = models.CharField(max_length=8, choices=CURRENCY_CHOICES, default='GBP')
     country = models.CharField(max_length=4, choices=COUNTRY_CHOICES, default='UK')
-    features = models.JSONField()
+    features = models.JSONField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
 

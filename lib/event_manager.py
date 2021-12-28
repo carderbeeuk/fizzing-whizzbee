@@ -41,7 +41,7 @@ def trigger(event_name, threaded=True, max_threads=None):
 
 def start_thread(thread, max_threads=None):
     active_threads = threading.active_count()
-    max_threads = max_threads if max_threads else setgings.EVENT_MANAGER['semaphore']['max_threads']
+    max_threads = max_threads if max_threads else settings.EVENT_MANAGER['semaphore']['max_threads']
 
     if active_threads >= max_threads:
         time.sleep(1)
