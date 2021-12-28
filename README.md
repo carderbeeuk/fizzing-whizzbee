@@ -120,6 +120,8 @@ are then stored in the `merchants` table for use later on.
 ##### Options
 `-p --provider` the provider (e.g. kelkoo, awin)
 
+### Products
+
 #### `process_offers`
 ```
 python manage.py process_offers --provider {provider}
