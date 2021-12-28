@@ -65,5 +65,6 @@ class Processor():
             existing_offer.save()
 
         except Exception as err:
+            print(offer)
             print(traceback.format_exc())
             exit()

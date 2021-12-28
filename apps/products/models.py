@@ -9,6 +9,8 @@ AVAILABILITY_CHOICES = (
     ('OUT_OF_STOCK', 'out_of_stock'),
     ('PRE_ORDER', 'pre_order'),
     ('CHECK_SITE', 'check_site'),
+    ('AVAILABLE_ON_ORDER', 'available_on_order'),
+    ('STOCK_ON_ORDER', 'stock_on_order'),
 )
 
 COUNTRY_CHOICES = (
@@ -30,7 +32,7 @@ PROVIDERS = (
 
 # Create your models here.
 class Product(models.Model):
-    product_code = models.CharField(max_length=128)
+    product_code = models.CharField(max_length=255)
     active = models.BooleanField(default=True)
     product_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     offer_id = models.CharField(max_length=128)
@@ -52,7 +54,7 @@ class Product(models.Model):
     merchant_mobile_landing_url = models.TextField()
     image_large = models.TextField()
     image_small = models.TextField()
-    delivery_time = models.CharField(max_length=32)
+    delivery_time = models.CharField(max_length=64)
     delivery_cost = models.DecimalField(max_digits=11, decimal_places=2, null=True, blank=True)
     discount_percentage = models.IntegerField()
     currency = models.CharField(max_length=8, choices=CURRENCY_CHOICES, default='GBP')

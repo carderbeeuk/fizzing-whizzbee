@@ -52,4 +52,3 @@ class Command(BaseCommand):
 
         except Exception as err:
             print(traceback.format_exc())
-            exit()
