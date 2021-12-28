@@ -92,6 +92,20 @@ python manage.py migrate
 Fetches all google categories from https://www.google.com/basepages/producttype/taxonomy-with-ids.en-GB.txt<br/>
 and stores them in the database.
 
+### Products
+
+#### `process_offers`
+```
+python manage.py process_offers --provider {provider}
+```
+
+Uploads the offers from file to products table by provider.
+
+> Note that any merchant not active will not have products uploaded.
+
+##### Options
+`-p --provider` the provider (e.g. kelkoo, awin)
+
 ### Merchants
 #### `download_merchant_feeds`
 ```
@@ -116,20 +130,6 @@ are then stored in the `merchants` table for use later on.
 > It is strongly reccommended that the merchants, once imported, are assigned a
 > `default_google_category` value if the source/provider is awin. This can be done in the application
 > admin section once the google categories are imported.
-
-##### Options
-`-p --provider` the provider (e.g. kelkoo, awin)
-
-### Products
-
-#### `process_offers`
-```
-python manage.py process_offers --provider {provider}
-```
-
-Uploads the offers from file to products table by provider.
-
-> Note that any merchant not active will not have products uploaded.
 
 ##### Options
 `-p --provider` the provider (e.g. kelkoo, awin)
