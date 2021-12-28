@@ -119,3 +119,13 @@ are then stored in the `merchants` table for use later on.
 
 ##### Options
 `-p --provider` the provider (e.g. kelkoo, awin)
+
+#### `process_offers`
+```
+python manage.py process_offers --provider {provider}
+```
+
+Uploads the offers from file to products table by provider.
+
+##### Options
+`-p --provider` the provider (e.g. kelkoo, awin)
