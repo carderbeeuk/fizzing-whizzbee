@@ -127,5 +127,7 @@ python manage.py process_offers --provider {provider}
 
 Uploads the offers from file to products table by provider.
 
+> Note that any merchant not active will not have products uploaded.
+
 ##### Options
 `-p --provider` the provider (e.g. kelkoo, awin)
