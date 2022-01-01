@@ -113,7 +113,8 @@ class Parser(Processor):
             'discount_percentage': float(row['savings_percent']),
             'currency': 'GBP',
             'country': 'UK',
-            'features': None
+            'features': None,
+            'provider': 'AWIN',
         }
 
         return offer

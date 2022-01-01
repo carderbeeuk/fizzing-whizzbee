@@ -92,7 +92,8 @@ class Parser(Processor):
             'discount_percentage': float(row['rebate_percentage']),
             'currency': 'GBP',
             'country': 'UK',
-            'features': None
+            'features': None,
+            'provider': 'KELKOO',
         }
 
         return offer

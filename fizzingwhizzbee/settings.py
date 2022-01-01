@@ -21,6 +21,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 environ.Env.read_env()
 
+APPLICATION_ENV=env('APPLICATION_ENV')
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -46,7 +48,7 @@ INSTALLED_APPS = [
 
     # my apps
     'apps.categories',
-    'apps.indices',
+    'apps.elasticsearch',
     'apps.merchants',
     'apps.products',
 ]
@@ -161,3 +163,12 @@ EVENT_MANAGER = {
         'max_threads': 4
     }
 }
+
+ELASTICSEARCH = {
+    'host': 'localhost',
+    'port': '9200',
+    'user': env('ELASTICSEARCH_USER'),
+    'pass': env('ELASTICSEARCH_PASS'),
+}
+
+ELASTICSEARCH_PAGINATOR_PER_PAGE = 500000

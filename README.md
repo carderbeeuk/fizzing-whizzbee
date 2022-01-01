@@ -83,6 +83,13 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
+### Create a django superuser
+```
+cd /srv/fizzing-whizzbee
+. venv/bin/activate
+python manage.py createsuperuser
+```
+
 ## Console Commands
 
 ### Categories

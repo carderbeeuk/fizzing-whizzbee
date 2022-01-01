@@ -53,7 +53,8 @@ class Processor():
                 discount_percentage=offer['discount_percentage'],
                 currency=offer['currency'],
                 country=offer['country'],
-                features=offer['features']
+                features=offer['features'],
+                provider=offer['provider'],
             )
 
         except IntegrityError as err:
