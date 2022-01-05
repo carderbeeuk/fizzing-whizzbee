@@ -8,12 +8,9 @@ class Index(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return f'{name}'
-
     class Meta:
         db_table = 'indices'
-        ordering = ('name',)
+        ordering = ('-active', '-created')
         constraints = [
             models.UniqueConstraint(fields=['name'], name='name')
         ]

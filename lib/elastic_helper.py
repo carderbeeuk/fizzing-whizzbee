@@ -109,3 +109,7 @@ class ElasticHelper():
                 if self.instance.indices.exists(index=index.name):
                     print(f'removing elastic index for {index.name}')
                     self.instance.indices.delete(index=index.name)
+
+    def delete_index(self, index):
+        if self.instance.indices.exists(index=index.name):
+            self.instance.indices.delete(index=index.name)
