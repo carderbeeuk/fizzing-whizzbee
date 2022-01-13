@@ -24,13 +24,19 @@ APPLICATION_ENV=os.environ.get('APPLICATION_ENV', 'development')
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY') or 'django-insecure-@-3azwmi@6t^&#h1t82c1_8@17a^#04h4rk^ik4i#43gfqq%zt'
+print(SECRET_KEY)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = str(os.environ.get('DEBUG')) == "1"
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'fw.carderbee.com']
+ALLOWED_HOSTS = []
+if not DEBUG:
+    ALLOWED_HOSTS += [os.environ.get('DJANGO_ALLOWED_HOST')]
 
+
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
 
 # Application definition
 
