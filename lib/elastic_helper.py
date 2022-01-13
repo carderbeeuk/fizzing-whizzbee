@@ -13,7 +13,6 @@ class ElasticHelper():
         self._init_instance()
 
     def _init_instance(self):
-        print('intitializing es instance')
         es_url = f"{settings.ELASTICSEARCH['host']}:{settings.ELASTICSEARCH['port']}"
         if settings.APPLICATION_ENV == 'production':
             es_url = f"{settings.ELASTICSEARCH['user']}:{settings.ELASTICSEARCH['pass']}@{es_url}"
