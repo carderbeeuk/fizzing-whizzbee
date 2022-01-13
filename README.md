@@ -90,6 +90,41 @@ cd /srv/fizzing-whizzbee
 python manage.py createsuperuser
 ```
 
+### Running the application
+set up the supervisor config in `/etc/supervisor/conf.d/fizzing-whizzbee.conf`
+```
+[program:fizzing-whizzbee]
+directory=/srv/fizzing-whizzbee
+command=/srv/fizzing-whizzbee/venv/bin/gunicorn --workers 3 --timeout 300 --bind 127.0.0.1:8090 fizzingwhizzbee:wsgi
+user=carderbee
+autostart=true
+autorestart=true
+stdout_logfile=/srv/fizzing-whizzbee/logs/gunicorn.log
+stderr_logfile=/srv/fizzing-whizzbee/logs/gunicorn-error.log
+```
+
+### Serving the app using nginx
+set up for nginx in `/etc/nginx/sites-available/mean-machine.carderbee.com.conf`
+```
+server {
+    listen 80;
+    server_name fw.carderbee.com;
+
+    location / {
+        proxy_pass http://localhost:8090;
+    }
+}
+```
+set site enabled
+```
+cd /etc/nginx/sites-enabled
+sudo ln -s ../sites-available/mean-machine.carderbee.com.conf
+```
+
+### Setting up SSL
+follow instrunctions here:
+https://certbot.eff.org/lets-encrypt/debianbuster-nginx
+
 ## Console Commands
 
 ### Categories
