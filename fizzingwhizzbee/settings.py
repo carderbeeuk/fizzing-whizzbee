@@ -10,30 +10,26 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-import environ
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Set up environment variables
-env = environ.Env()
-environ.Env.read_env()
-
-APPLICATION_ENV=env('APPLICATION_ENV')
+APPLICATION_ENV=os.environ.get('APPLICATION_ENV', 'development')
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
+DEBUG = str(os.environ.get('DEBUG')) == "1"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'fw.carderbee.com']
 
 
 # Application definition
@@ -99,8 +95,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'fizzing_whizzbee',
-        'USER': env('DATABASE_USER'),
-        'PASSWORD': env('DATABASE_PASS'),
+        'USER': os.environ.get('DATABASE_USER'),
+        'PASSWORD': os.environ.get('DATABASE_PASS'),
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -162,11 +158,11 @@ FEED_DATA = {
 
 PROVIDERS = {
     'awin': {
-        'api_key': env('AWIN_API_KEY'),
+        'api_key': os.environ.get('AWIN_API_KEY'),
         'merchants_endpoint': 'https://productdata.awin.com/datafeed/list/apikey/',
     },
     'kelkoo': {
-        'api_key': env('KELKOO_API_KEY'),
+        'api_key': os.environ.get('KELKOO_API_KEY'),
         'merchants_endpoint': 'https://api.kelkoogroup.net/publisher/shopping/v2/feeds/merchants?country=uk&format=csv&offerMatch=any&merchantMatch=any',
     },
 }
@@ -180,8 +176,8 @@ EVENT_MANAGER = {
 ELASTICSEARCH = {
     'host': 'localhost',
     'port': '9200',
-    'user': env('ELASTICSEARCH_USER'),
-    'pass': env('ELASTICSEARCH_PASS'),
+    'user': os.environ.get('ELASTICSEARCH_USER'),
+    'pass': os.environ.get('ELASTICSEARCH_PASS'),
 }
 
 ELASTICSEARCH_PAGINATOR_PER_PAGE = 50000
