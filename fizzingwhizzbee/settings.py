@@ -46,7 +46,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # third party apps
+    'corsheaders',
+    'rest_framework',
+
     # my apps
+    'apps.api',
     'apps.categories',
     'apps.elasticsearch',
     'apps.merchants',
@@ -61,6 +66,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # third party
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'fizzingwhizzbee.urls'
@@ -143,6 +151,10 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+]
+
 FEED_DATA = {
     'file_dir': BASE_DIR / 'files'
 }
@@ -171,4 +183,4 @@ ELASTICSEARCH = {
     'pass': env('ELASTICSEARCH_PASS'),
 }
 
-ELASTICSEARCH_PAGINATOR_PER_PAGE = 500000
+ELASTICSEARCH_PAGINATOR_PER_PAGE = 50000

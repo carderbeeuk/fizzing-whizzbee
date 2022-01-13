@@ -2,9 +2,11 @@ asgiref==3.4.1
 certifi==2021.10.8
 charset-normalizer==2.0.9
 Django==3.2.10
+django-cors-headers==3.10.1
 django-environ==0.8.1
 djangorestframework==3.13.1
 elasticsearch==7.16.2
+elasticsearch-dsl==7.4.0
 idna==3.3
 pkg-resources==0.0.0
 psycopg2-binary==2.9.2

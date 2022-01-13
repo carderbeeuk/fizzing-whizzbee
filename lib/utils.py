@@ -22,3 +22,37 @@ def build_features_list(featuresDict) -> list:
             })
     
     return features
+
+
+def serialize_offer(offer) -> dict:
+    serialised_offer = {
+        'product_code': offer.product_code,
+        'active': offer.active,
+        'product_uuid': offer.product_uuid,
+        'offer_id': offer.offer_id,
+        'availability': offer.availability,
+        'title': offer.title,
+        'description': offer.description,
+        'author': offer.author,
+        'publisher': offer.publisher,
+        'price': offer.price,
+        'price_without_rebate': offer.price_without_rebate,
+        'month_price': offer.month_price,
+        'manufacturer': offer.manufacturer,
+        'merchant': offer.merchant.name,
+        'provider': offer.provider,
+        'google_category': offer.google_category.google_category_full_path,
+        'condition': offer.condition,
+        'click_out_url': offer.click_out_url,
+        'merchant_landing_url': offer.merchant_landing_url,
+        'merchant_mobile_landing_url': offer.merchant_mobile_landing_url,
+        'image_large': offer.image_large,
+        'image_small': offer.image_small,
+        'delivery_time': offer.delivery_time,
+        'delivery_cost': offer.delivery_cost,
+        'discount_percentage': offer.discount_percentage,
+        'currency': offer.currency,
+        'country': offer.country,
+    }
+
+    return serialised_offer
