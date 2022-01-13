@@ -104,7 +104,7 @@ stderr_logfile=/srv/fizzing-whizzbee/logs/gunicorn-error.log
 ```
 
 ### Serving the app using nginx
-set up for nginx in `/etc/nginx/sites-available/mean-machine.carderbee.com.conf`
+set up for nginx in `/etc/nginx/sites-available/fw.carderbee.com.conf`
 ```
 server {
     listen 80;
@@ -118,7 +118,7 @@ server {
 set site enabled
 ```
 cd /etc/nginx/sites-enabled
-sudo ln -s ../sites-available/mean-machine.carderbee.com.conf
+sudo ln -s ../sites-available/fw.carderbee.com.conf
 ```
 
 ### Setting up SSL
