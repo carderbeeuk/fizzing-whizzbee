@@ -105,6 +105,12 @@ ELASTICSEARCH = {
 ELASTICSEARCH_PAGINATOR_PER_PAGE = 50000
 ```
 
+generate a secret key like so
+
+```
+python -c "import secrets; print(secrets.token_urlsafe())"
+```
+
 ### Initialize the database
 ```
 sudo -u postgres createdb fizzing_whizzbee
