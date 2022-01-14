@@ -49,19 +49,60 @@ pip install -r requirements.txt
 ### Set up the config
 ```
 cd /srv/fizzing-whizzbee
-nano fizzingwhizzbee/.env
+nano fizzingwhizzbee/settings_private.py
+```
 
-# add the following keys, these will be used throughout the application
+add the following keys, these will be used throughout the application
 
-APPLICATION_ENV={development/production}
-SECRET_KEY={application_secret_key}
-DATABASE_USER=carderbee
-DATABASE_PASS={db_pass}
-DEBUG={True/False} # False for production
-ELASTICSEARCH_USER=elastic
-ELASTICSEARCH_PASS={elastic_pass}
-AWIN_API_KEY={awin_api_key}
-KELKOO_API_KEY={kelkoo_api_key}
+```
+# App environment
+APPLICATION_ENV = 'production'
+
+# Django common
+DJANGO_SECRET_KEY = ''
+DJANGO_DEBUG = 0
+DJANGO_ALLOWED_HOSTS = ['127.0.0.1',]
+
+# Database
+# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'fizzing_whizzbee',
+        'USER': '***',
+        'PASSWORD': '***',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
+
+# Event manager
+EVENT_MANAGER = {
+    'semaphore': {
+        'max_threads': 4
+    }
+}
+
+# Product feed providers
+PROVIDERS = {
+    'awin': {
+        'api_key': '***',
+        'merchants_endpoint': 'https://productdata.awin.com/datafeed/list/apikey/',
+    },
+    'kelkoo': {
+        'api_key': '***',
+        'merchants_endpoint': 'https://api.kelkoogroup.net/publisher/shopping/v2/feeds/merchants?country=uk&format=csv&offerMatch=any&merchantMatch=any',
+    },
+}
+
+# Elasticsearch
+ELASTICSEARCH = {
+    'host': 'localhost',
+    'port': '9200',
+    'user': 'elastic',
+    'pass': '***',
+}
+ELASTICSEARCH_PAGINATOR_PER_PAGE = 50000
 ```
 
 ### Initialize the database
@@ -79,7 +120,7 @@ ALTER USER carderbee CREATEDB;
 # su carderbee
 cd /srv/fizzing-whizzbee
 . venv/bin/activate
-python manage.py makemigrations
+python manage.py makemigrations api categories elasticsearch merchants products
 python manage.py migrate
 ```
 
