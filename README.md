@@ -5,15 +5,17 @@
 ## Installation
 
 ### Requirements
+> these requirements are tested on debain10 using default versions
+
 ```
 - git
-- python3.6
+- python>=3.6
 - python3-venv
 - python3-dev
 - libssl-dev
 - nginx
 - supervisor
-- elasticsearch (should be running at defaultport)
+- elasticsearch>=7.15 (should be running at defaultport)
 - kibana (optional)
 - docker (for development only)
 ```
@@ -39,7 +41,7 @@ sudo chown -R carderbee:developers /srv/fizzing-whizzbee
 sudo su carderbee
 cd /srv/fizzing-whizzbee
 
-python3.6 -m venv venv
+python3 -m venv venv
 . venv/bin/activate
 
 pip install wheel
@@ -61,7 +63,7 @@ APPLICATION_ENV = 'production'
 # Django common
 DJANGO_SECRET_KEY = ''
 DJANGO_DEBUG = 0
-DJANGO_ALLOWED_HOSTS = ['127.0.0.1',]
+DJANGO_ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -159,6 +161,10 @@ server {
 
     location / {
         proxy_pass http://localhost:8090;
+    }
+
+    location /static/ {
+        root /srv/fizzing-whizzbee;
     }
 }
 ```
