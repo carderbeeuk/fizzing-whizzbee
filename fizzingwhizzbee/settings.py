@@ -11,31 +11,20 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 import os
+from .settings_private import *
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-APPLICATION_ENV=os.environ.get('APPLICATION_ENV', 'development')
+SECRET_KEY = DJANGO_SECRET_KEY
+DEBUG = str(DJANGO_DEBUG) == "1"
+ALLOWED_HOSTS = DJANGO_ALLOWED_HOSTS
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = str(os.environ.get('DEBUG')) == "1"
-
-ALLOWED_HOSTS = []
-if not DEBUG:
-    ALLOWED_HOSTS += [os.environ.get('DJANGO_ALLOWED_HOST')]
-
-
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
 
 # Application definition
 
@@ -93,21 +82,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'fizzingwhizzbee.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'fizzing_whizzbee',
-        'USER': os.environ.get('DATABASE_USER'),
-        'PASSWORD': os.environ.get('DATABASE_PASS'),
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
-
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -130,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-gb'
 
 TIME_ZONE = 'UTC'
 
@@ -145,7 +119,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/srv/fizzing-whizzbee/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -160,29 +133,3 @@ CORS_ORIGIN_WHITELIST = [
 FEED_DATA = {
     'file_dir': BASE_DIR / 'files'
 }
-
-PROVIDERS = {
-    'awin': {
-        'api_key': os.environ.get('AWIN_API_KEY'),
-        'merchants_endpoint': 'https://productdata.awin.com/datafeed/list/apikey/',
-    },
-    'kelkoo': {
-        'api_key': os.environ.get('KELKOO_API_KEY'),
-        'merchants_endpoint': 'https://api.kelkoogroup.net/publisher/shopping/v2/feeds/merchants?country=uk&format=csv&offerMatch=any&merchantMatch=any',
-    },
-}
-
-EVENT_MANAGER = {
-    'semaphore': {
-        'max_threads': 4
-    }
-}
-
-ELASTICSEARCH = {
-    'host': 'localhost',
-    'port': '9200',
-    'user': os.environ.get('ELASTICSEARCH_USER'),
-    'pass': os.environ.get('ELASTICSEARCH_PASS'),
-}
-
-ELASTICSEARCH_PAGINATOR_PER_PAGE = 50000
