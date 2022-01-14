@@ -14,6 +14,7 @@ class GoogleCategory(models.Model):
         return self.google_category_full_path
 
     class Meta:
+        verbose_name_plural = 'Categories'
         db_table = 'google_categories'
         ordering = ('name',)
         constraints = [

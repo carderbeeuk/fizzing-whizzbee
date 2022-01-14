@@ -9,6 +9,7 @@ class Index(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
 
     class Meta:
+        verbose_name_plural = 'Indices'
         db_table = 'indices'
         ordering = ('-active', '-created')
         constraints = [
