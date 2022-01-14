@@ -16,7 +16,7 @@ class GoogleCategory(models.Model):
     class Meta:
         verbose_name_plural = 'Categories'
         db_table = 'google_categories'
-        ordering = ('name',)
+        ordering = ('google_category_full_path',)
         constraints = [
             models.UniqueConstraint(fields=['name', 'cardinality', 'parent_category_id'], name='name_cardinality_parent_category_id')
         ]
