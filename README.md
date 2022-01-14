@@ -105,6 +105,10 @@ ELASTICSEARCH = {
     'pass': '***',
 }
 ELASTICSEARCH_PAGINATOR_PER_PAGE = 50000
+
+# Static
+# This is where django will store all static stuff like css and js files
+STATIC_ROOT = '/abs/path/to/static/folder/'
 ```
 
 generate a secret key like so
@@ -130,6 +134,7 @@ cd /srv/fizzing-whizzbee
 . venv/bin/activate
 python manage.py makemigrations api categories elasticsearch merchants products
 python manage.py migrate
+python manage.py collectstatic
 ```
 
 ### Create a django superuser
