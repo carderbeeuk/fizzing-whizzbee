@@ -193,7 +193,6 @@ Fetches all google categories from https://www.google.com/basepages/producttype/
 and stores them in the database.
 
 ### Products
-
 #### `process_offers`
 ```
 python manage.py process_offers --provider {provider}
@@ -230,6 +229,20 @@ are then stored in the `merchants` table for use later on.
 > It is strongly reccommended that the merchants, once imported, are assigned a
 > `default_google_category` value if the source/provider is awin. This can be done in the application
 > admin section once the google categories are imported.
+
+##### Options
+`-p --provider` the provider (e.g. kelkoo, awin)
+
+### Indexing
+#### `index_offers`
+```
+python manage.py index_offers --provider {provider}
+```
+
+Selects active offers from the `products` table by provider and indexes those in a newly<br/>
+generated elasticsearch index. Indices by this provider older than 3 indices are removed also.
+
+> Note that inactive offers in the `products` table will not be indexed.
 
 ##### Options
 `-p --provider` the provider (e.g. kelkoo, awin)
