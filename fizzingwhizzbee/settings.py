@@ -175,6 +175,11 @@ LOGGING = {
             'handlers': ['console', 'general'],
             'propagate': 'no',
         },
+        'elasticsearch': {
+            'level': 'ERROR',
+            'handlers': ['console', 'general'],
+            'propagate': 'no',
+        },
         'merchants': {
             'level': 'INFO',
             'handlers': ['console', 'general'],
