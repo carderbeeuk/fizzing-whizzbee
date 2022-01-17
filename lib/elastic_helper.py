@@ -9,7 +9,7 @@ from apps.elasticsearch.models import Index
 from apps.products.models import Product
 
 
-logger = logging.getLogger('elasticsearch')
+logger = logging.getLogger('elastic')
 
 
 class ElasticHelper():

@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand
 from lib.elastic_helper import ElasticHelper
 
 
-logger = logging.getLogger('elasticsearch')
+logger = logging.getLogger('elastic')
 
 class Command(BaseCommand):
     def add_arguments(self, parser):

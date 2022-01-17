@@ -170,7 +170,7 @@ LOGGING = {
             'handlers': ['console', 'general'],
             'propagate': 'no',
         },
-        'elasticsearch': {
+        'elastic': {
             'level': 'INFO',
             'handlers': ['console', 'general'],
             'propagate': 'no',
