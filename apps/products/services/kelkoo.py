@@ -1,7 +1,11 @@
+import logging
 from .processor import Processor
 from apps.categories.models import GoogleCategory
 from apps.merchants.models import Merchant
 from lib import utils
+
+
+logger = logging.getLogger('products')
 
 
 class Parser(Processor):
@@ -13,8 +17,9 @@ class Parser(Processor):
 
         file_data = self.get_file_data()
         try:
-            merchant_name = next(file_data)['merchant_name']
+            merchant_name = str(next(file_data)['merchant_name']).strip()
         except Exception as err:
+            logger.exception(err)
             return []
 
         self.merchant_obj = Merchant.objects.filter(
@@ -22,6 +27,7 @@ class Parser(Processor):
         ).first()
 
         if not self.merchant_obj:
+            logger.warning(f'could not find a merchant by the name {merchant_name}')
             return []
 
         offers = [self._parse_row(row) for row in file_data]
