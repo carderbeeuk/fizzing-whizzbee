@@ -73,7 +73,7 @@ class ElasticHelper():
 
     def clean_old_indices(self, provider):
         logger.info('cleaning old indices')
-        indices = Index.objects.all().order_by('-created')
+        indices = Index.objects.filter(provider=provider).order_by('-created')
         if len(indices) > 3:
             indices_to_remove = indices[3:]
             for index in indices_to_remove:
