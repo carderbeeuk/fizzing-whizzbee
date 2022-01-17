@@ -1,5 +1,6 @@
 import threading
 import time
+import logging
 from django.conf import settings
 
 
@@ -31,7 +32,8 @@ def trigger(event_name, threaded=True, max_threads=None):
                 else:
                     event['callback'](*event['args'], **event['kwargs'])
             except Exception as err:
-                print('an error occured: {}'.format(err))
+                err_logger = logging.getLogger('error_mailer')
+                err_logger.error('an error occured: {}'.format(err))
 
     for thread in EventManager.threads:
         start_thread(thread, max_threads)

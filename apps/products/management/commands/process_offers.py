@@ -1,6 +1,7 @@
 import os
 import csv
 import importlib
+import logging
 import traceback
 from django.conf import settings
 from django.core.management.base import BaseCommand
@@ -27,7 +28,7 @@ class Command(BaseCommand):
         file_dir = str(settings.FEED_DATA['file_dir']) + '/' + provider
 
         files_list = [f for f in os.listdir(file_dir) if f != 'merchants.csv']
-        print(f'found {len(files_list)} files to index')
+        logger.info(f'found {len(files_list)} files to index')
 
         # set all products as inactive for now to avoid indexing inactive
         # products later on
@@ -41,7 +42,7 @@ class Command(BaseCommand):
     def _process_file(self, f, file_dir, provider):
         """processes the file and adds rows to the products table"""
 
-        print(f'processing {f}')
+        logger.info(f'processing {f}')
         try:
             with open(file_dir + '/' + f) as file_obj:
                 parser = importlib.import_module(f'apps.products.services.{provider}').Parser(file_obj)
@@ -51,4 +52,4 @@ class Command(BaseCommand):
                     parser.store_offer(offer)
 
         except Exception as err:
-            print(traceback.format_exc())
+            logger.info(traceback.format_exc())

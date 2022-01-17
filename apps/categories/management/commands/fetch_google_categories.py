@@ -1,17 +1,21 @@
 import requests
+import logging
 from django.core.management.base import BaseCommand
 from apps.categories.parsers.categories_parser import CategoriesParser
 from apps.categories.models import Category, GoogleCategory
+
+
+logger = logging.getLogger('categories')
 
 
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         categories_list = self._fetch_categories_list()
         self._update_google_categories(categories_list)
-        print('done updating google categories')
+        logger.info('done updating')
 
     def _fetch_categories_list(self) -> list:
-        print('fetching google categories')
+        logger.info('fetching')
         url = 'https://www.google.com/basepages/producttype/taxonomy-with-ids.en-GB.txt'
         content = requests.get(url).content
         parser = CategoriesParser(content)
@@ -34,7 +38,7 @@ class Command(BaseCommand):
             }, ... ]
         """
 
-        print('inserting categories')
+        logger.info('inserting')
         for category in categories_list:
             cat_to_insert_name = category['categories'][-1]
             parent_category = GoogleCategory.objects.filter(

@@ -1,6 +1,9 @@
+import logging
 from django.core.management.base import BaseCommand
 from lib.elastic_helper import ElasticHelper
 
+
+logger = logging.getLogger('elasticsearch')
 
 class Command(BaseCommand):
     def add_arguments(self, parser):
@@ -18,7 +21,7 @@ class Command(BaseCommand):
             return
 
         provider = kwargs.get('provider')
-        print(f'indexing offers for {provider}')
+        logger.info(f'indexing offers for {provider}')
 
         helper = ElasticHelper()
         helper.bulk_index(provider)

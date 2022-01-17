@@ -1,11 +1,15 @@
 import uuid
 import traceback
+import logging
 from elasticsearch import Elasticsearch, helpers
 from django.conf import settings
 from django.core.paginator import Paginator
 from lib import event_manager, utils
 from apps.elasticsearch.models import Index
 from apps.products.models import Product
+
+
+logger = logging.getLogger('elasticsearch')
 
 
 class ElasticHelper():
@@ -20,21 +24,22 @@ class ElasticHelper():
         self.instance = Elasticsearch(es_url)
 
     def bulk_index(self, provider, feed_name='offers'):
-        print(f'starting bulk index for {provider}')
+        logger.info(f'starting bulk index for {provider}')
         version = str(uuid.uuid4()).split('-')[-1]
         new_index_name = f'fw_{provider}_{feed_name}_{version}'
         docs_paginator = self._get_docs_paginator(provider)
 
         try:
             for page_num in range(docs_paginator.num_pages):
-                print(f'indexing page {page_num + 1}/{docs_paginator.num_pages} on {new_index_name}')
+                logger.info(f'indexing page {page_num + 1}/{docs_paginator.num_pages} on {new_index_name}')
                 docs = [utils.serialize_offer(offer) for offer in docs_paginator.page(page_num + 1).object_list]
                 self._index_docs(docs, new_index_name)
 
             # event_manager.trigger('index-docs', threaded=False, max_threads=4)
 
         except Exception as err:
-            print(traceback.format_exc())
+            err_logger = logging.getLogger('error_mailer')
+            err_logger.error(traceback.format_exc())
             # pass
 
         else:
@@ -53,7 +58,7 @@ class ElasticHelper():
         return active_indices_query_set
 
     def _get_docs_paginator(self, provider):
-        print('getting the offers paginator')
+        logger.info('getting the offers paginator')
         offers = Product.objects.filter(provider=str(provider).upper(), active=True)
         p = Paginator(offers, settings.ELASTICSEARCH_PAGINATOR_PER_PAGE)
         return p
@@ -67,15 +72,15 @@ class ElasticHelper():
         )
 
     def clean_old_indices(self, provider):
-        print('cleaning old indices')
+        logger.info('cleaning old indices')
         indices = Index.objects.all().order_by('-created')
         if len(indices) > 3:
             indices_to_remove = indices[3:]
             for index in indices_to_remove:
-                print(f'removing index pointer for {index.name}')
+                logger.info(f'removing index pointer for {index.name}')
                 index.delete()
                 if self.instance.indices.exists(index=index.name):
-                    print(f'removing elastic index for {index.name}')
+                    logger.info(f'removing elastic index for {index.name}')
                     self.instance.indices.delete(index=index.name)
 
     def delete_index(self, index):

@@ -1,11 +1,15 @@
 import importlib
 import pathlib
 import csv
+import logging
 from django.core.management.base import BaseCommand
 from django.conf import settings
 from optparse import make_option
 from lib.downloader import Downloader
 from apps.merchants.models import Merchant
+
+
+logger = logging.getLogger('merchants')
 
 
 class Command(BaseCommand):
@@ -23,7 +27,7 @@ class Command(BaseCommand):
             self.stderr.write('Please specify a --provider')
             return
 
-        print('setting up required directories')
+        logger.info('setting up required directories')
         provider = kwargs.get('provider')
 
         file_dir = str(settings.FEED_DATA['file_dir']) + '/' + provider
@@ -33,12 +37,12 @@ class Command(BaseCommand):
         self._download_merchants_info(provider, file_full_path)
         self._store_merchant_info(provider, file_full_path)
 
-        print(f'done fetching {provider} merchants')
+        logger.info(f'done fetching {provider} merchants')
 
     def _download_merchants_info(self, provider, file_full_path):
         """downloads merchants info file"""
 
-        print(f'downloading {provider} merchants csv file')
+        logger.info(f'downloading {provider} merchants csv file')
 
         token = settings.PROVIDERS[provider]['api_key']
         endpoint = settings.PROVIDERS[provider]['merchants_endpoint']
@@ -58,7 +62,7 @@ class Command(BaseCommand):
     def _store_merchant_info(self, provider, file_full_path):
         """stores merchant information in the db"""
 
-        print(f'storing merchant information for {provider}')
+        logger.info(f'storing merchant information for {provider}')
 
         provider_service = importlib.import_module(f'apps.merchants.services.{provider}').Service()
 

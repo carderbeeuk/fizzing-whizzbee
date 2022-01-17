@@ -1,9 +1,13 @@
+import logging
 from django.core.management.base import BaseCommand
 from django.conf import settings
 from apps.merchants.models import Merchant
 from lib.downloader import Downloader
 from lib.file_handler import FileHandler
 from lib import event_manager, utils
+
+
+logger = logging.getLogger('merchants')
 
 
 class Command(BaseCommand):
@@ -21,7 +25,7 @@ class Command(BaseCommand):
             self.stderr.write('Please specify a --provider')
             return
 
-        print('finding merchants to download feeds for')
+        logger.info('finding merchants to download feeds for')
         provider = kwargs.get('provider')
         file_dir = str(settings.FEED_DATA['file_dir']) + '/' + provider
 
@@ -35,7 +39,7 @@ class Command(BaseCommand):
     def _download_merchant_feed(self, merchant, file_dir):
         """downloads merchant feed file"""
 
-        print(f'downloading merchant feed for {merchant.name} - {merchant.feed_name}')
+        logger.info(f'downloading merchant feed for {merchant.name} - {merchant.feed_name}')
 
         token = settings.PROVIDERS[str(merchant.source).lower()]['api_key']
         headers = {}

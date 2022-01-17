@@ -134,3 +134,61 @@ CORS_ORIGIN_WHITELIST = [
 FEED_DATA = {
     'file_dir': BASE_DIR / 'files'
 }
+
+# LOGGING
+LOGGING = {
+    'version': 1,
+    'formatters': {
+        'default': {
+            'format': '[%(asctime)s] [%(process)d] [%(levelname)s] [%(name)s] %(message)s',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'level': 'DEBUG',
+            'formatter': 'default',
+            'stream': 'ext://sys.stdout'
+        },
+        'mail_admins': {
+            'level': 'INFO',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'include_html': True,
+        },
+        'general': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'level': 'INFO',
+            'formatter': 'default',
+            'filename': BASE_DIR / 'logs' / 'general.log',
+            'maxBytes': 10485760,
+            'backupCount': 3,
+        },
+    },
+    'loggers': {
+        'categories': {
+            'level': 'INFO',
+            'handlers': ['console', 'general'],
+            'propagate': 'no',
+        },
+        'elasticsearch': {
+            'level': 'INFO',
+            'handlers': ['console', 'general'],
+            'propagate': 'no',
+        },
+        'merchants': {
+            'level': 'INFO',
+            'handlers': ['console', 'general'],
+            'propagate': 'no',
+        },
+        'products': {
+            'level': 'INFO',
+            'handlers': ['console', 'general'],
+            'propagate': 'no',
+        },
+        'error_mailer': {
+            'level': 'ERROR',
+            'handlers': ['console', 'mail_admins', 'general'],
+            'propagate': 'no',
+        }
+    }
+}

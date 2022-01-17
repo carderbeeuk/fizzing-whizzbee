@@ -1,4 +1,5 @@
 import csv
+import logging
 import traceback
 from apps.merchants.models import Merchant
 from apps.products.models import Product
@@ -66,6 +67,6 @@ class Processor():
             existing_offer.save()
 
         except Exception as err:
-            print(offer)
-            print(traceback.format_exc())
+            err_logger = logging.getLogger('error_mailer')
+            err_logger.error(traceback.format_exc())
             exit()
