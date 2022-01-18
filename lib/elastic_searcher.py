@@ -121,7 +121,7 @@ class ElasticSearcher(ElasticHelper):
                     "operator": "and",
                     "minimum_should_match": "100%",
                     "fuzziness": 1,
-                    "prefix_length": 3
+                    "prefix_length": 5
                 }
             }
         ]
