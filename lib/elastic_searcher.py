@@ -117,11 +117,11 @@ class ElasticSearcher(ElasticHelper):
         self.must_match_query = [
             {
                 "multi_match": {
-                    "fields": ["title^3", "google_category^2", "manufacturer"],
+                    "fields": ["title^3", "google_category^2", "manufacturer", "merchant"],
                     "operator": "and",
                     "minimum_should_match": "100%",
                     "fuzziness": 1,
-                    "prefix_length": 4
+                    "prefix_length": 3
                 }
             }
         ]
