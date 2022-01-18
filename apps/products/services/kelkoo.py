@@ -19,7 +19,7 @@ class Parser(Processor):
         try:
             merchant_name = str(next(file_data)['merchant_name']).strip()
         except Exception as err:
-            logger.exception(err)
+            logger.error(err.args)
             return []
 
         self.merchant_obj = Merchant.objects.filter(

@@ -64,4 +64,5 @@ class Command(BaseCommand):
             logger.info(f'processed {len(offers)} offers for {f}, time taken: {round(time_taken)}s')
 
         except Exception as err:
+            logger.error(f'we encountered a problem processing {f}')
             logger.exception(traceback.format_exc())
