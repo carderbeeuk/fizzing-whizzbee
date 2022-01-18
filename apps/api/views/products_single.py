@@ -10,7 +10,13 @@ def single_view(request, *args, **kwargs):
 
     uuid = kwargs.get('uuid', None)
     product = Product.objects.get(product_uuid=uuid)
+    if not product.active:
+        product.availability = 'CHECK_SITE'
+
     offers = Product.objects.filter(product_code=product.product_code)
+    for offer in offers:
+        if not offer.active:
+            offer.availability = 'CHECK_SITE'
 
     response = {
         'product': utils.serialize_offer(product),
