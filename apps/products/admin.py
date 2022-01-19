@@ -7,7 +7,7 @@ from .models import Product
 class ProductAdmin(admin.ModelAdmin):
     search_fields = ['title', 'product_uuid', 'product_code', 'offer_id', 'manufacturer', 'merchant__name', 'google_category__name']
     list_display = (
-        'product_code',
+        # 'product_code',
         'product_uuid',
         'offer_id',
         'availability',
@@ -16,8 +16,8 @@ class ProductAdmin(admin.ModelAdmin):
         'manufacturer',
         'merchant',
         'google_category',
-        'delivery_cost',
-        'currency',
+        # 'delivery_cost',
+        # 'currency',
         'created',
         'last_updated',
     )
