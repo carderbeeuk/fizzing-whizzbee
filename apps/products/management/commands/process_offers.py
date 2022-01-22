@@ -54,7 +54,7 @@ class Command(BaseCommand):
             start = time.time()
             with open(file_dir + '/' + f) as file_obj:
                 parser = importlib.import_module(f'apps.products.services.{provider}').Parser(file_obj)
-                parser.set_inactive_merchants()
+                parser.set_inactive_merchants(provider)
                 offers = parser.get_parsed_rows()
                 for offer in offers:
                     parser.store_offer(offer)

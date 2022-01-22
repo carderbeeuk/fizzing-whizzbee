@@ -15,11 +15,11 @@ class Processor():
         file_data = csv.DictReader(self.file_obj)
         return file_data
 
-    def set_inactive_merchants(self):
+    def set_inactive_merchants(self, provider):
         inactive_merchants = Merchant.objects.filter(
             Q(active=False) | Q(approved=False)
         )
-        self.inactive_merchants = [merchant.name for merchant in inactive_merchants]
+        self.inactive_merchants = [merchant.name for merchant in inactive_merchants if merchant.source == str(provider).upper()]
 
     def store_offer(self, offer):
         """stores the offer in the products table"""
