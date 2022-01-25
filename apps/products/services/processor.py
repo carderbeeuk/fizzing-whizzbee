@@ -64,6 +64,7 @@ class Processor():
                 title=offer['title']
             ).first()
             existing_offer.active = True
+            existing_offer.product_code = offer['product_code']
             existing_offer.availability = offer['availability']
             existing_offer.save()
 
