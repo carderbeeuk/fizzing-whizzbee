@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Merchant
 from .models import GoogleMerchantCenterAccount
+from apps.products.models import Product
 
 # Register your models here.
 # admin.site.register(Merchant)
@@ -13,12 +14,21 @@ class MerchantAdmin(admin.ModelAdmin):
         'source',
         'feed_name',
         'domain',
+        'get_offer_count',
         'default_google_category',
         'approved',
         'active',
         'created',
         'last_updated',
     )
+
+    def get_offer_count(self, obj):
+        """gets the offer count for this merchant"""
+        offers = Product.objects.filter(
+            merchant=obj,
+            active=True
+        )
+        return len(offers)
 
 
 @admin.register(GoogleMerchantCenterAccount)
@@ -28,6 +38,7 @@ class GoogleMerchantCenterAccountAdmin(admin.ModelAdmin):
         'get_merchant_name',
         'get_merchant_domain',
         'account_id',
+        'get_gsa_count',
         'active',
         'created',
         'last_updated',
@@ -38,3 +49,12 @@ class GoogleMerchantCenterAccountAdmin(admin.ModelAdmin):
 
     def get_merchant_domain(self, obj):
         return obj.merchant.domain
+
+    def get_gsa_count(self, obj):
+        """gets the offer count for google_shopping_active"""
+        offers = Product.objects.filter(
+            merchant=obj.merchant,
+            google_shopping_active=True,
+            active=True
+        )
+        return len(offers)
