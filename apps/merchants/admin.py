@@ -40,6 +40,7 @@ class GoogleMerchantCenterAccountAdmin(admin.ModelAdmin):
     list_display = (
         'get_merchant_name',
         'get_merchant_domain',
+        'get_merchant_source',
         'account_id',
         'get_gsa_count',
         'active',
@@ -58,6 +59,12 @@ class GoogleMerchantCenterAccountAdmin(admin.ModelAdmin):
     )
     def get_merchant_domain(self, obj):
         return obj.merchant.domain
+
+    @admin.display(
+        description='Provider'
+    )
+    def get_merchant_source(self, obj):
+        return obj.merchant.source
 
     @admin.display(
         description='GSA Count'
