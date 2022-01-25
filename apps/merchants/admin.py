@@ -22,6 +22,9 @@ class MerchantAdmin(admin.ModelAdmin):
         'last_updated',
     )
 
+    @admin.display(
+        description='Offer Count'
+    )
     def get_offer_count(self, obj):
         """gets the offer count for this merchant"""
         offers = Product.objects.filter(
@@ -44,12 +47,21 @@ class GoogleMerchantCenterAccountAdmin(admin.ModelAdmin):
         'last_updated',
     )
 
+    @admin.display(
+        description='Merchant'
+    )
     def get_merchant_name(self, obj):
         return obj.merchant.name
 
+    @admin.display(
+        description='Domain'
+    )
     def get_merchant_domain(self, obj):
         return obj.merchant.domain
 
+    @admin.display(
+        description='GSA Count'
+    )
     def get_gsa_count(self, obj):
         """gets the offer count for google_shopping_active"""
         offers = Product.objects.filter(
