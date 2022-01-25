@@ -23,7 +23,13 @@ class Parser(Processor):
         """parses the row into readable dict and returns"""
 
         mpn = str(row['mpn']) if row['mpn'] else int(row['aw_product_id'])
-        gtin = str(float(row['product_GTIN']))[0:-2] if row['product_GTIN'] and type(row['product_GTIN']) is not str else None
+
+        gtin = None
+        try:
+            gtin = str(float(row['product_GTIN']))[0:-2]
+        except Exception as err:
+            print(err.args)
+
         ean = str(row['ean']) if row['ean'] else None
         if ean == '0':
             ean = None
