@@ -8,12 +8,14 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ['title', 'product_uuid', 'product_code', 'offer_id', 'manufacturer', 'merchant__name', 'google_category__name']
     list_display = (
         # 'product_code',
+        'active',
+        'google_shopping_active',
         'product_uuid',
-        'offer_id',
+        # 'offer_id',
         'availability',
         'title',
         'price',
-        'manufacturer',
+        # 'manufacturer',
         'merchant',
         'google_category',
         # 'delivery_cost',
