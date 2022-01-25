@@ -44,7 +44,7 @@ class GoogleMerchantCenterAccount(models.Model):
 
     class Meta:
         db_table = 'google_merchant_center_accounts'
-        ordering = ('account_id',)
+        ordering = ('merchant__name',)
         constraints = [
             models.UniqueConstraint(fields=['merchant', 'account_id'], name='merchant_account_id')
         ]
