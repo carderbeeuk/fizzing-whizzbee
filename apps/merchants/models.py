@@ -40,7 +40,7 @@ class GoogleMerchantCenterAccount(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'({self.merchant__source}) {self.merchant__domain} - {self.account_id}'
+        return f'({self.merchant.source}) {self.merchant.domain} - {self.account_id}'
 
     class Meta:
         db_table = 'google_merchant_center_accounts'
