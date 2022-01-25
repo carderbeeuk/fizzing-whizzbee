@@ -15,7 +15,7 @@ class Merchant(models.Model):
     feed_name = models.CharField(max_length=128)
     feed_url = models.TextField()
     default_google_category = models.ForeignKey(GoogleCategory, on_delete=models.CASCADE, null=True, blank=True)
-    domain = models.CharField(max_length=128, null=True)
+    domain = models.CharField(max_length=128, null=True, blank=True)
     approved = models.BooleanField(default=True)
     active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
