@@ -59,6 +59,7 @@ class Product(models.Model):
     discount_percentage = models.IntegerField()
     currency = models.CharField(max_length=8, choices=CURRENCY_CHOICES, default='GBP')
     country = models.CharField(max_length=4, choices=COUNTRY_CHOICES, default='UK')
+    google_shopping_active = models.BooleanField(default=False, null=False)
     features = models.JSONField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
