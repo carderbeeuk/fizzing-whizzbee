@@ -49,19 +49,22 @@ class GoogleMerchantCenterAccountAdmin(admin.ModelAdmin):
     )
 
     @admin.display(
-        description='Merchant'
+        description='Merchant',
+        ordering='merchant__name'
     )
     def get_merchant_name(self, obj):
         return obj.merchant.name
 
     @admin.display(
-        description='Domain'
+        description='Domain',
+        ordering='merchant__domain'
     )
     def get_merchant_domain(self, obj):
         return obj.merchant.domain
 
     @admin.display(
-        description='Provider'
+        description='Provider',
+        ordering='merchant__source'
     )
     def get_merchant_source(self, obj):
         return obj.merchant.source
