@@ -79,7 +79,7 @@ class Command(BaseCommand):
             'brand': product.manufacturer,
             'gtin': product.global_identifier,
             'identifier_exists': 'yes',
-            'condition': product.condition if product.condition else 'new',
+            'condition': str(product.condition).lower() if product.condition else 'new',
             'custom_label_0': None,
             'custom_label_1': None,
             'custom_label_2': None,
