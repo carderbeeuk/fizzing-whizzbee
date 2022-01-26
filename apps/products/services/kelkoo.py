@@ -46,6 +46,8 @@ class Parser(Processor):
             mpn=mpn
         )
 
+        global_identifier = ean
+
         if not product_code:
             return
 
@@ -100,6 +102,7 @@ class Parser(Processor):
             'country': 'UK',
             'features': None,
             'provider': 'KELKOO',
+            'global_identifier': global_identifier,
         }
 
         return offer

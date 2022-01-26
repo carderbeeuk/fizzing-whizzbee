@@ -43,6 +43,16 @@ class Parser(Processor):
             isbn=isbn
         )
 
+        global_identifier = None
+        if gtin:
+            global_identifier = gtin
+        if not global_identifier and ean:
+            global_identifier = ean
+        if not global_identifier and isbn:
+            global_identifier = isbn
+        if not global_identifier and upc:
+            global_identifier = upc
+
         if not product_code:
             return
 
@@ -121,6 +131,7 @@ class Parser(Processor):
             'country': 'UK',
             'features': None,
             'provider': 'AWIN',
+            'global_identifier': global_identifier,
         }
 
         return offer

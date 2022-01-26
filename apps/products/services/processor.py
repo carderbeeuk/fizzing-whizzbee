@@ -56,6 +56,7 @@ class Processor():
                 country=offer['country'],
                 features=offer['features'],
                 provider=offer['provider'],
+                global_identifier=offer['global_identifier']
             )
 
         except IntegrityError as err:
@@ -65,6 +66,7 @@ class Processor():
             ).first()
             existing_offer.active = True
             existing_offer.product_code = offer['product_code']
+            existing_offer.global_identifier = offer['global_identifier']
             existing_offer.availability = offer['availability']
             existing_offer.save()
 
