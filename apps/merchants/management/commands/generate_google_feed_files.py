@@ -1,6 +1,9 @@
 import logging
 import os
 import csv
+import requests
+import mimetypes
+from django.conf import settings
 from django.core.management.base import BaseCommand
 from apps.merchants.models import GoogleMerchantCenterAccount
 from apps.products.models import Product
@@ -72,7 +75,7 @@ class Command(BaseCommand):
             'title': product.title,
             'description': product.description,
             'link': product.merchant_landing_url,
-            'image_link': product.image_large,
+            'image_link': f'https://fw.carderbee.com/static/images/{self._download_image(product)}',
             'availability': str(product.availability).lower(),
             'price': f'{product.price} GBP',
             'expiration_date': None, # should be 48 hours from now
@@ -89,3 +92,17 @@ class Command(BaseCommand):
         } for product in products]
 
         return keys, rows
+
+    def _download_image(self, product):
+        image_data = requests.get(product.image_large)
+        content_type = image_data.headers['content-type']
+        file_ext = mimetypes.guess_extension(content_type)
+
+        image_filename = str(product.title).lower().replace(' ', '-').replace('/', '-').replace('&', 'and') + file_ext
+        image_filepath = f'{settings.STATIC_ROOT}/images/{image_filename}'
+
+        if not os.path.exists(image_filepath):
+            with open(image_filepath, 'wb') as handler:
+                handler.write(image_data.content)
+
+        return image_filename

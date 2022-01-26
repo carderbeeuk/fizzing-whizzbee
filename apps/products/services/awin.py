@@ -26,7 +26,8 @@ class Parser(Processor):
 
         gtin = None
         try:
-            gtin = str(float(row['product_GTIN']))[0:-2]
+            if row['product_GTIN'] != '':
+                gtin = str(float(row['product_GTIN']))[0:-2]
         except Exception as err:
             print(err.args)
 
