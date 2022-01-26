@@ -12,6 +12,7 @@ class ProductAdmin(admin.ModelAdmin):
         # 'offer_id',
         'title',
         'availability',
+        'global_identifier',
         'price',
         'active',
         'google_shopping_active',
