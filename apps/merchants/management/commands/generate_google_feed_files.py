@@ -64,7 +64,7 @@ class Command(BaseCommand):
             'custom_label_2',
             'custom_label_3',
             'custom_label_4',
-            'shipping',
+            'shipping(country:price:min_transit_time:max_transit_time)',
         ]
 
         rows = [{
@@ -85,7 +85,7 @@ class Command(BaseCommand):
             'custom_label_2': None,
             'custom_label_3': None,
             'custom_label_4': None,
-            'shipping': product.google_shopping_delivery,
+            'shipping(country:price:min_transit_time:max_transit_time)': product.google_shopping_delivery,
         } for product in products]
 
         return keys, rows
