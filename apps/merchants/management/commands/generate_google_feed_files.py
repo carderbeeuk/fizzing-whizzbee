@@ -85,7 +85,7 @@ class Command(BaseCommand):
             'custom_label_2': None,
             'custom_label_3': None,
             'custom_label_4': None,
-            'shipping(country:price:min_transit_time:max_transit_time)': product.google_shopping_delivery + ':2',
+            'shipping(country:price:min_transit_time:max_transit_time:max_handling_time)': str(product.google_shopping_delivery) + ':2',
         } for product in products]
 
         return keys, rows
