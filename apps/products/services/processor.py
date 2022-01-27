@@ -66,7 +66,7 @@ class Processor():
             ).first()
             existing_offer.active = True
             existing_offer.product_code = offer['product_code']
-            existing_offer.global_identifier = offer['global_identifier']
+            existing_offer.global_identifier = offer['global_identifier'] if offer['global_identifier'] else existing_offer.global_identifier
             existing_offer.availability = offer['availability']
             existing_offer.save()
 
