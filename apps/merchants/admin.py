@@ -14,7 +14,7 @@ class MerchantAdmin(admin.ModelAdmin):
         'source',
         'feed_name',
         'domain',
-        'get_offer_count',
+        # 'get_offer_count',
         'default_google_category',
         'approved',
         'active',
