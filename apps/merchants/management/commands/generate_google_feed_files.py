@@ -68,6 +68,10 @@ class Command(BaseCommand):
             'custom_label_3',
             'custom_label_4',
             'shipping(country:price:min_handling_time:max_handling_time:min_transit_time:max_transit_time)',
+            'age_group',
+            'color',
+            'gender',
+            'size',
         ]
 
         rows = [{
@@ -89,6 +93,10 @@ class Command(BaseCommand):
             'custom_label_3': None,
             'custom_label_4': None,
             'shipping(country:price:min_handling_time:max_handling_time:min_transit_time:max_transit_time)': product.google_shopping_delivery,
+            'age_group': product.age_group,
+            'color': product.color,
+            'gender': product.gender,
+            'size': product.size,
         } for product in products]
 
         return keys, rows
