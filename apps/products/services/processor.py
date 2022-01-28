@@ -29,8 +29,7 @@ class Processor():
         
         try:
             existing_offer = Product.objects.filter(
-                offer_id=offer['offer_id'],
-                title=offer['title']
+                offer_id=offer['offer_id']
             ).first()
 
         except Exception as err:
