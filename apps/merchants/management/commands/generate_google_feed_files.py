@@ -25,7 +25,7 @@ class Command(BaseCommand):
             self._generate_new_files(account)
 
     def _remove_old_files(self, account):
-        filepath = f'{feeds_dir}{account.account_id}_primary.tsv'
+        filepath = f'{feeds_dir}{account.account_id}_primary.txt'
         if os.path.exists(filepath):
             logger.info(f'removing file at "{filepath}"')
             os.remove(filepath)
@@ -41,7 +41,7 @@ class Command(BaseCommand):
             logger.info(f'no products found for "{account.merchant.name}", skipping file generation')
             return
 
-        output_filepath = f'{feeds_dir}{account.account_id}_primary.tsv'
+        output_filepath = f'{feeds_dir}{account.account_id}_primary.txt'
         keys, rows = self._get_keys_and_rows(products)
 
         with open(output_filepath, 'w') as out_file:
