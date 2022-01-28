@@ -26,8 +26,19 @@ class Processor():
 
         if not offer:
             return
-
+        
         try:
+            existing_offer = Product.objects.filter(
+                offer_id=offer['offer_id'],
+                title=offer['title']
+            ).first()
+
+        except Exception as err:
+            err_logger = logging.getLogger('error_mailer')
+            err_logger.error(traceback.format_exc())
+            return # we want to avoid duplicates here
+
+        if not existing_offer:
             new_offer = Product.objects.create(
                 product_code=offer['product_code'],
                 active=offer['active'],
@@ -58,19 +69,13 @@ class Processor():
                 provider=offer['provider'],
                 global_identifier=offer['global_identifier']
             )
-
-        except IntegrityError as err:
-            existing_offer = Product.objects.filter(
-                offer_id=offer['offer_id'],
-                title=offer['title']
-            ).first()
+        
+        else:
             existing_offer.active = True
             existing_offer.product_code = offer['product_code']
-            existing_offer.global_identifier = offer['global_identifier'] if offer['global_identifier'] else existing_offer.global_identifier
             existing_offer.availability = offer['availability']
+            existing_offer.discount_percentage = offer['discount_percentage']
+            existing_offer.price = offer['price']
+            existing_offer.price_without_rebate = offer['price_without_rebate']
+            existing_offer.global_identifier = offer['global_identifier'] if offer['global_identifier'] else existing_offer.global_identifier
             existing_offer.save()
-
-        except Exception as err:
-            err_logger = logging.getLogger('error_mailer')
-            err_logger.error(traceback.format_exc())
-            exit()
