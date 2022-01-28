@@ -75,7 +75,7 @@ class Command(BaseCommand):
             'size',
         ]
 
-        two_days_from_now_obj = datetime.datetime.now() + datetime.timedelta(days=2)
+        two_days_from_now_obj = datetime.datetime.now() + datetime.timedelta(days=3)
         two_days_from_now_str = datetime.datetime.strftime(two_days_from_now_obj, '%Y-%m-%dT%H:%M+0100')
         rows = [{
             'id': product.product_uuid,
