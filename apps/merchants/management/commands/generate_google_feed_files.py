@@ -2,6 +2,7 @@ import logging
 import os
 import csv
 import requests
+import datetime
 import mimetypes
 from django.conf import settings
 from django.core.management.base import BaseCommand
@@ -74,6 +75,8 @@ class Command(BaseCommand):
             'size',
         ]
 
+        two_days_from_now_obj = datetime.datetime.now() + datetime.timedelta(days=2)
+        two_days_from_now_str = datetime.datetime.strftime(two_days_from_now_obj, '%Y-%m-%dT%H:%M%z')
         rows = [{
             'id': product.product_uuid,
             'title': product.title,
@@ -82,7 +85,7 @@ class Command(BaseCommand):
             'image_link': f'https://fw.carderbee.com/static/images/{self._download_image(product)}',
             'availability': str(product.availability).lower(),
             'price': f'{product.price} GBP',
-            'expiration_date': None, # should be 48 hours from now
+            'expiration_date': two_days_from_now_str, # should be 48 hours from now
             'brand': product.manufacturer,
             'gtin': product.global_identifier,
             'identifier_exists': 'yes',
