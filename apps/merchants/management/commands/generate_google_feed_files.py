@@ -76,7 +76,7 @@ class Command(BaseCommand):
         ]
 
         two_days_from_now_obj = datetime.datetime.now() + datetime.timedelta(days=2)
-        two_days_from_now_str = datetime.datetime.strftime(two_days_from_now_obj, '%Y-%m-%dT%H:%M%z')
+        two_days_from_now_str = datetime.datetime.strftime(two_days_from_now_obj, '%Y-%m-%dT%H:%M+0100')
         rows = [{
             'id': product.product_uuid,
             'title': product.title,
@@ -96,10 +96,10 @@ class Command(BaseCommand):
             'custom_label_3': None,
             'custom_label_4': None,
             'shipping(country:price:min_handling_time:max_handling_time:min_transit_time:max_transit_time)': product.google_shopping_delivery,
-            'age_group': product.age_group,
-            'color': product.color,
-            'gender': product.gender,
-            'size': product.size,
+            'age_group': product.age_group if product.age_group else None,
+            'color': product.color if product.color else None,
+            'gender': product.gender if product.gender else None,
+            'size': product.size if product.size else None,
         } for product in products]
 
         return keys, rows
