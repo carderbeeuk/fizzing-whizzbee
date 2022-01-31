@@ -76,5 +76,7 @@ class Processor():
             existing_offer.discount_percentage = offer['discount_percentage']
             existing_offer.price = offer['price']
             existing_offer.price_without_rebate = offer['price_without_rebate']
-            existing_offer.global_identifier = offer['global_identifier'] if offer['global_identifier'] else existing_offer.global_identifier
+            if not existing_offer.global_identifier:
+                if offer['global_identifier']:
+                    existing_offer.global_identifier = offer['global_identifier']
             existing_offer.save()
