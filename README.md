@@ -137,6 +137,16 @@ python manage.py migrate
 python manage.py collectstatic
 ```
 
+### Update Postgresql Config
+> We had issues where the available connections were being exhausted
+> whilst processing offers.
+
+Add/Update the following in `/etc/postgresql/11/main/postgresql.conf`
+```
+max_connections = 300 # from 100
+shared_buffers = 512MB # from 128MB
+```
+
 ### Create a django superuser
 ```
 cd /srv/fizzing-whizzbee
