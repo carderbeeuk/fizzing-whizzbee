@@ -185,6 +185,18 @@ https://certbot.eff.org/lets-encrypt/debianbuster-nginx
 
 ## Console Commands
 
+### Typical Command Order
+> The typical order in which commands should be run
+
+```
+python manage.py fetch_google_categories # fetches categories
+python manage.py fetch_merchants --provider {provider} # fetches merchants for db
+python manage.py download_merchant_feeds --provider {provider} # downloads merchant feeds
+python manage.py process_offers --provider {provider} # processes active offers
+python manage.py index_offers --provider {provider} # indexes active offers in elasticsearch
+python manage.py generate_google_feed_files # generates feed files for google MCAs
+```
+
 ### Categories
 #### `fetch_google_categories`
 `python manage.py fetch_google_categories`
@@ -246,3 +258,13 @@ generated elasticsearch index. Indices by this provider older than 3 indices are
 
 ##### Options
 `-p --provider` the provider (e.g. kelkoo, awin)
+
+### Generate Google Feed Files
+#### `index_offers`
+```
+python manage.py generate_google_feed_files
+```
+
+Generates google feed files that are uploaded to merchant center accounts.
+
+> Note that inactive offers in the `products` table will not be included.
