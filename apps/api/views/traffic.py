@@ -17,4 +17,4 @@ def redirect_view(request, *args, **kwargs):
         logger.error(f'there was a problem retrieving the product object to redirect, product id: {product_uuid}')
         return Response('no product found by that ID, could not redirect', status=400)
 
-    return redirect(product_obj.product_obj.click_out_url)
+    return redirect(product_obj.click_out_url)
