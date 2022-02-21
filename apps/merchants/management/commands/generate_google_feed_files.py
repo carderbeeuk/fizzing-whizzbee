@@ -107,8 +107,10 @@ class Command(BaseCommand):
         return keys, rows
 
     def _get_cookie_link(self, product):
-        r = requests.get(product.click_out_url)
-        link = r.url
+        link = product.merchant_landing_url
+        if product.provider == 'AWIN':
+            r = requests.get(product.click_out_url)
+            link = r.url
         return link
 
     def _download_image(self, product):
