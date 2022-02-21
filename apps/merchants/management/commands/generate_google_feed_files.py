@@ -55,6 +55,7 @@ class Command(BaseCommand):
             'title',
             'description',
             'link',
+            'ads_redirect',
             'image_link',
             'availability',
             'price',
@@ -82,6 +83,7 @@ class Command(BaseCommand):
             'title': product.title,
             'description': product.description,
             'link': product.merchant_landing_url,
+            'ads_redirect': self._get_cookie_link(product),
             'image_link': f'https://fw.carderbee.com/static/images/{self._download_image(product)}',
             'availability': str(product.availability).lower(),
             'price': f'{product.price} GBP',
@@ -103,6 +105,11 @@ class Command(BaseCommand):
         } for product in products]
 
         return keys, rows
+
+    def _get_cookie_link(self, product):
+        r = requests.get(product.click_out_url)
+        link = r.url
+        return link
 
     def _download_image(self, product):
         image_data = requests.get(product.image_large)
