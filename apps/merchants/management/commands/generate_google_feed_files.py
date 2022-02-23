@@ -76,8 +76,9 @@ class Command(BaseCommand):
             'size',
         ]
 
-        two_days_from_now_obj = datetime.datetime.now() + datetime.timedelta(days=3)
-        two_days_from_now_str = datetime.datetime.strftime(two_days_from_now_obj, '%Y-%m-%dT%H:%M+0100')
+        n_days_from_now_obj = datetime.datetime.now() + datetime.timedelta(days=3)
+        n_days_from_now_str = datetime.datetime.strftime(n_days_from_now_obj, '%Y-%m-%dT%H:%M+0100')
+
         rows = [{
             'id': product.product_uuid,
             'title': product.title,
@@ -85,9 +86,9 @@ class Command(BaseCommand):
             'link': product.merchant_landing_url,
             'ads_redirect': self._get_cookie_link(product),
             'image_link': f'https://fw.carderbee.com/static/images/{self._download_image(product)}',
-            'availability': str(product.availability).lower(),
+            'availability': str(product.availability).lower() if product.availability != 'pre_order' else 'preorder',
             'price': f'{product.price} GBP',
-            'expiration_date': two_days_from_now_str, # should be 48 hours from now
+            'expiration_date': n_days_from_now_str,
             'brand': product.manufacturer,
             'gtin': product.global_identifier,
             'identifier_exists': 'yes',
