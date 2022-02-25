@@ -86,7 +86,7 @@ class Command(BaseCommand):
             'link': product.merchant_landing_url,
             'ads_redirect': self._get_cookie_link(product),
             'image_link': f'https://fw.carderbee.com/static/images/{self._download_image(product)}',
-            'availability': str(product.availability).lower() if product.availability != 'pre_order' else 'preorder',
+            'availability': self._get_availability(str(product.availability).lower()),
             'price': f'{product.price} GBP',
             'expiration_date': n_days_from_now_str,
             'brand': product.manufacturer,
@@ -113,6 +113,12 @@ class Command(BaseCommand):
             r = requests.get(product.click_out_url)
             link = r.url
         return link
+
+    def _get_availability(self, raw_avail_str):
+        avail_str = raw_avail_str
+        if raw_avail_str == 'pre_order':
+            avail_str = 'preorder'
+        return avail_str
 
     def _download_image(self, product):
         image_data = requests.get(product.image_large)
