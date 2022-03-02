@@ -125,7 +125,7 @@ class Command(BaseCommand):
         content_type = image_data.headers['content-type']
         file_ext = mimetypes.guess_extension(content_type)
 
-        image_filename = str(product.title).lower().replace(' ', '-').replace('/', '-').replace('&', 'and').replace(',', '') + file_ext
+        image_filename = str(product.title).lower().replace(' ', '-').replace('/', '-').replace('&', 'and').replace(',', '').replace('%', 'percent') + file_ext
         image_filepath = f'{settings.STATIC_ROOT}/images/{image_filename}'
 
         if not os.path.exists(image_filepath):
