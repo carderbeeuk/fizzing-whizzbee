@@ -205,6 +205,7 @@ python manage.py download_merchant_feeds --provider {provider} # downloads merch
 python manage.py process_offers --provider {provider} # processes active offers
 python manage.py index_offers --provider {provider} # indexes active offers in elasticsearch
 python manage.py generate_google_feed_files # generates feed files for google MCAs
+python manage.py generate_active_merchants # generates a csv file of active merchants for Google
 ```
 
 ### Categories
@@ -278,3 +279,13 @@ python manage.py generate_google_feed_files
 Generates google feed files that are uploaded to merchant center accounts.
 
 > Note that inactive offers in the `products` table will not be included.
+
+
+### Generate Active Merchants CSV
+#### `generate_active_merchants`
+```
+python manage.py generate_active_merchants
+```
+
+Generates active merchants csv file for Google. This file is uploaded to<br/>
+comparisonshoppingservices.google.com to meet CSS requirements.
