@@ -23,5 +23,5 @@ class Command(BaseCommand):
         with open(outfile_path, 'w') as f:
             writer = csv.writer(f)
             writer.writerows([
-                merchant.domain, str(merchant.name).replace('Ltd.', '').strip(), 'GB'
+                str(merchant.domain).replace('https://', ''), str(merchant.name).replace('Ltd.', '').strip(), 'GB'
             ] for merchant in merchants if merchant.domain)
