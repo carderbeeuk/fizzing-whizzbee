@@ -10,6 +10,7 @@ def redirect_view(request, *args, **kwargs):
     """redirects based on product id in kwargs"""
 
     product_uuid = kwargs.get('product_id', None)
+    gclid = kwargs.get('gclid', None)
     try:
         product_obj = Product.objects.get(product_uuid=product_uuid)
     except Exception as err:
@@ -17,4 +18,5 @@ def redirect_view(request, *args, **kwargs):
         logger.error(f'there was a problem retrieving the product object to redirect, product id: {product_uuid}')
         return Response('no product found by that ID, could not redirect', status=400)
 
-    return redirect(product_obj.click_out_url)
+    click_out_url = product_obj.click_out_url + f'&pref1={gclid}&clickref={gclid}'
+    return redirect(click_out_url)
