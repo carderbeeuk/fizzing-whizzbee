@@ -42,6 +42,7 @@ def serialize_offer(offer) -> dict:
         'merchant': offer.merchant.name,
         'provider': offer.provider,
         'google_category': offer.google_category.google_category_full_path,
+        'google_category_id': offer.google_category.google_category_id,
         'condition': offer.condition,
         'click_out_url': offer.click_out_url,
         'merchant_landing_url': offer.merchant_landing_url,
