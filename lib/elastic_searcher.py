@@ -128,8 +128,8 @@ class ElasticSearcher(ElasticHelper):
 
         self.category_offers_must_match_query = [
             {
-                "term": {
-                    "google_category.keyword": None
+                "multi_match": {
+                    "fields": ["google_category_id^3", "google_category_parent_ids"]
                 }
             }
         ]
@@ -177,10 +177,10 @@ class ElasticSearcher(ElasticHelper):
     def category_offers(self, params):
         """get offers by category"""
 
-        category_name = params['category_name']
+        category_id = params['category_id']
         active_indices = self._get_active_indices()
         self._reset_queries()
-        self.category_offers_must_match_query[0]['term']['google_category.keyword'] = category_name
+        self.category_offers_must_match_query[0]['multi_match']['query'] = category_id
         self._append_to_query(params)
         self._handle_category_selection(params)
         self._set_sorting(params)
