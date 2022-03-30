@@ -55,7 +55,7 @@ def _get_params(request, kwargs):
         'max_price': max_price,
         'brand': brand,
         'category': category,
-        'category_name': kwargs.get('category_name', None),
+        'category_id': kwargs.get('category_id', None),
         'delivery': delivery,
     }
 
