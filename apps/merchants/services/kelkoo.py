@@ -15,7 +15,16 @@ class Service(Provider):
             'source': self.source,
             'feed_name': 'Default',
             'feed_url': feed_url,
-            'approved': True
+            'approved': True,
+            'domain': self._get_domain(row['url']),
         }
 
         return merchant
+
+    def _get_domain(self, url):
+        domain = str(url).replace('http://', 'https://').replace('www.', '')
+        domain = domain.split('?')[0]
+        if domain.count('/') > 2:
+            parts = domain.split('/')
+            domain = f'{parts[0]}//{parts[2]}'
+        return domain

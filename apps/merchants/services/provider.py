@@ -13,7 +13,7 @@ class Provider():
             return
 
         try:
-            new_merchant = Merchant.objects.create(
+            merchant_obj = Merchant.objects.create(
                 name=merchant['name'],
                 source=merchant['source'],
                 feed_name=merchant['feed_name'],
@@ -22,11 +22,16 @@ class Provider():
             )
 
         except IntegrityError as err:
-            existing_merchant = Merchant.objects.filter(
+            merchant_obj = Merchant.objects.filter(
                 name=merchant['name'],
                 source=merchant['source'],
                 feed_name=merchant['feed_name']
             ).first()
-            existing_merchant.feed_url = merchant['feed_url']
-            existing_merchant.approved = merchant['approved']
-            existing_merchant.save()
+            merchant_obj.feed_url = merchant['feed_url']
+            merchant_obj.approved = merchant['approved']
+            merchant_obj.save()
+
+        finally:
+            if self.source == 'KELKOO':
+                merchant_obj.domain = merchant['domain'] if not merchant_obj.domain else merchant['domain']
+                merchant_obj.save()
