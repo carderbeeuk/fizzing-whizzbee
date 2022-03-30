@@ -43,6 +43,7 @@ def serialize_offer(offer) -> dict:
         'provider': offer.provider,
         'google_category': offer.google_category.google_category_full_path,
         'google_category_id': offer.google_category.google_category_id,
+        'google_category_parent_ids': _get_parent_category_ids(offer.google_category),
         'condition': offer.condition,
         'click_out_url': offer.click_out_url,
         'merchant_landing_url': offer.merchant_landing_url,
@@ -57,3 +58,15 @@ def serialize_offer(offer) -> dict:
     }
 
     return serialised_offer
+
+
+def _get_parent_category_ids(category_obj) -> list:
+    parents = []
+    i = 1
+    this_cat = category_obj
+    while i < category_obj.cardinality:
+        parents.append(this_cat.parent_category.google_category_id)
+        this_cat = this_cat.parent_category
+        i += 1
+
+    return parents
