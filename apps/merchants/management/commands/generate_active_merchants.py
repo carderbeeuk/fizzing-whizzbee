@@ -17,7 +17,7 @@ class Command(BaseCommand):
         merchants = Merchant.objects.filter(
             active=True,
             approved=True
-        )
+        ).exclude(source='KELKOO_PLA')
 
         outfile_path = '/srv/fizzing-whizzbee/files/active_merchants.csv'
         with open(outfile_path, 'w') as f:
