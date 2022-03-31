@@ -23,7 +23,8 @@ class Parser(Processor):
             return []
 
         self.merchant_obj = Merchant.objects.filter(
-            name=merchant_name
+            name=merchant_name,
+            source='KELKOO'
         ).first()
 
         if not self.merchant_obj:

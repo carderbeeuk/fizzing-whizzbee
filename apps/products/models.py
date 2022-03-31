@@ -27,6 +27,7 @@ CURRENCY_CHOICES = (
 PROVIDERS = (
     ('AWIN', 'awin'),
     ('KELKOO', 'kelkoo'),
+    ('KELKOO_PLA', 'kelkoo_pla')
 )
 
 
@@ -74,7 +75,7 @@ class Product(models.Model):
         db_table = 'products'
         ordering = ('title',)
         constraints = [
-            models.UniqueConstraint(fields=['title', 'offer_id'], name='title_offer_id')
+            models.UniqueConstraint(fields=['title', 'offer_id', 'provider'], name='title_offer_id_provider')
         ]
         indexes = [
             models.Index(fields=[

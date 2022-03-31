@@ -43,7 +43,7 @@ class Command(BaseCommand):
 
         token = settings.PROVIDERS[str(merchant.source).lower()]['api_key']
         headers = {}
-        if merchant.source == 'KELKOO':
+        if merchant.source == 'KELKOO' or merchant.source == 'KELKOO_PLA':
             headers = {
                 'Authorization': f'Bearer {token}',
                 'Accept-Encoding': 'gzip',

@@ -32,6 +32,6 @@ class Provider():
             merchant_obj.save()
 
         finally:
-            if self.source == 'KELKOO':
+            if self.source == 'KELKOO' or self.source == 'KELKOO_PLA':
                 merchant_obj.domain = merchant['domain'] if not merchant_obj.domain else merchant['domain']
                 merchant_obj.save()

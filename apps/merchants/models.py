@@ -5,6 +5,7 @@ from apps.categories.models import GoogleCategory
 SOURCES = (
     ('AWIN', 'awin'),
     ('KELKOO', 'kelkoo'),
+    ('KELKOO_PLA', 'kelkoo_pla')
 )
 
 

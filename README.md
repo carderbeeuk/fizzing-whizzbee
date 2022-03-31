@@ -95,6 +95,10 @@ PROVIDERS = {
         'api_key': '***',
         'merchants_endpoint': 'https://api.kelkoogroup.net/publisher/shopping/v2/feeds/merchants?country=uk&format=csv&offerMatch=any&merchantMatch=any',
     },
+    'kelkoo_pla': {
+        'api_key': '***',
+        'merchants_endpoint': 'https://api.kelkoogroup.net/publisher/shopping/v2/feeds/merchants?country=uk&format=csv&offerMatch=any&merchantMatch=any',
+    },
 }
 
 # Elasticsearch

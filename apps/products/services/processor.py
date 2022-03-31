@@ -11,8 +11,8 @@ class Processor():
     def __init__(self, file_obj):
         self.file_obj = file_obj
 
-    def get_file_data(self):
-        file_data = csv.DictReader(self.file_obj)
+    def get_file_data(self, delimiter=','):
+        file_data = csv.DictReader(self.file_obj, delimiter=delimiter)
         return file_data
 
     def set_inactive_merchants(self, provider):
@@ -29,7 +29,8 @@ class Processor():
         
         try:
             existing_offer = Product.objects.filter(
-                offer_id=offer['offer_id']
+                offer_id=offer['offer_id'],
+                provider=offer['provider']
             ).first()
 
         except Exception as err:
@@ -38,7 +39,7 @@ class Processor():
             return # we want to avoid duplicates here
 
         if not existing_offer:
-            new_offer = Product.objects.create(
+            Product.objects.create(
                 product_code=offer['product_code'],
                 active=offer['active'],
                 offer_id=offer['offer_id'],
